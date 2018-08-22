@@ -1,0 +1,20 @@
+{
+    "name": "p-ba/symfony-serializer-annotations",
+    "description": "Serializer annotations",
+    "type": "library",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.3",
+        "friendsofphp/php-cs-fixer": "^2.12",
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^6.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Baraulya",
+            "email": "pbaraulya@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

@@ -2,3 +2,4 @@
 .phpcs
 .phpcs.cache
 phpunit.xml
+phpcs.xml

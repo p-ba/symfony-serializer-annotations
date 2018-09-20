@@ -22,7 +22,7 @@ class MappedObjectNormalizer extends ObjectNormalizer
     /**
      * @var array
      */
-    protected $readerCache;
+    protected $readerCache = [];
 
     public function __construct(
         ClassMetadataFactoryInterface $classMetadataFactory = null,
@@ -38,6 +38,9 @@ class MappedObjectNormalizer extends ObjectNormalizer
 
     protected function buildReaderCache($object)
     {
+        if (array_key_exists(get_class($object), $this->readerCache)) {
+            return;
+        }
         //Try to find MappedProperty annotation
         $reflectionClass = new \ReflectionClass($object);
         foreach ($reflectionClass->getProperties() as $property) {

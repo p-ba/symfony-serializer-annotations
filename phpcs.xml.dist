@@ -3,4 +3,9 @@
     <file>src</file>
     <file>tests</file>
     <rule ref="PSR2" />
+    <rule ref="Generic.Files.FileLength">
+        <properties>
+            <property name="lineLimit" value="180"/>
+        </properties>
+    </rule>
 </ruleset>

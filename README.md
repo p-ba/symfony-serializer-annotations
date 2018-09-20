@@ -1,4 +1,5 @@
 # symfony/serializer annotations
+[![Build Status](https://travis-ci.org/p-ba/symfony-serializer-annotations.svg?branch=master)](https://travis-ci.org/p-ba/symfony-serializer-annotations)
 
 Provides additional functionality to standard symfony/seriazlier component
 

@@ -36,6 +36,14 @@ class MappedObjectNormalizer extends ObjectNormalizer
         $this->reader = $reader;
     }
 
+    /**
+     * Build property annotations cache
+     *
+     * @param mixed $object
+     *
+     * @return void
+     * @throws \ReflectionException
+     */
     protected function buildReaderCache($object)
     {
         if (array_key_exists(get_class($object), $this->readerCache)) {
@@ -44,8 +52,9 @@ class MappedObjectNormalizer extends ObjectNormalizer
         //Try to find MappedProperty annotation
         $reflectionClass = new \ReflectionClass($object);
         foreach ($reflectionClass->getProperties() as $property) {
+            /** @var MappedProperty $annotation */
             $annotation = $this->reader->getPropertyAnnotation($property, MappedProperty::class);
-            if ($annotation) {
+            if ($annotation instanceof MappedProperty) {
                 $this->readerCache[$reflectionClass->getName()][$annotation->name] = $property->getName();
             }
         }
@@ -53,12 +62,14 @@ class MappedObjectNormalizer extends ObjectNormalizer
 
     /**
      * {@inheritdoc}
+     * @throws \ReflectionException
      */
     protected function setAttributeValue($object, $attribute, $value, $format = null, array $context = array())
     {
         $this->buildReaderCache($object);
-        if ($property = $this->readerCache[get_class($object)][$attribute]) {
-            parent::setAttributeValue($object, $property, $value, $format, $context);
+        $className = get_class($object);
+        if (array_key_exists($attribute, $this->readerCache[$className])) {
+            parent::setAttributeValue($object, $this->readerCache[$className][$attribute], $value, $format, $context);
             return;
         }
         parent::setAttributeValue($object, $attribute, $value, $format, $context);

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <ruleset>
-    <file>src</file>
-    <file>tests</file>
+    <file>./src</file>
+    <file>./tests</file>
     <rule ref="PSR2" />
-    <rule ref="Generic.Files.FileLength">
         <properties>
             <property name="lineLimit" value="180"/>
+            <property name="absoluteLineLimit" value="0"/>
         </properties>
     </rule>
 </ruleset>

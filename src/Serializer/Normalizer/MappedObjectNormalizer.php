@@ -60,18 +60,22 @@ class MappedObjectNormalizer extends ObjectNormalizer
         }
     }
 
+    protected function getAttributeName($object, $attribute)
+    {
+        $class = get_class($object);
+        $this->buildReaderCache($object);
+        if (array_key_exists($attribute, $this->readerCache[$class])) {
+            return $this->readerCache[$class][$attribute];
+        }
+        return $attribute;
+    }
+
     /**
      * {@inheritdoc}
-     * @throws \ReflectionException
      */
     protected function setAttributeValue($object, $attribute, $value, $format = null, array $context = array())
     {
-        $this->buildReaderCache($object);
-        $className = get_class($object);
-        if (array_key_exists($attribute, $this->readerCache[$className])) {
-            parent::setAttributeValue($object, $this->readerCache[$className][$attribute], $value, $format, $context);
-            return;
-        }
+        $attribute = $this->getAttributeName($object, $attribute);
         parent::setAttributeValue($object, $attribute, $value, $format, $context);
     }
 }

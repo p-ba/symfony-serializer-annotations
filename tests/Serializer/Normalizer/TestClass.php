@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace PBA\Serializer\Normalizer;
 
-use PBA\Serializer\Annotation\MappedProperty;
+use PBA\Serializer\Annotation\DeserializedName;
 
 class TestClass
 {
     /**
-     * @MappedProperty(name="test1")
+     * @DeserializedName("test1")
      */
     protected $testProperty;
 

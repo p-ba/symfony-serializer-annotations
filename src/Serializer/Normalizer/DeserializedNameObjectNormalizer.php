@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace PBA\Serializer\Normalizer;
 
 use Doctrine\Common\Annotations\Reader;
-use PBA\Serializer\Annotation\MappedProperty;
+use PBA\Serializer\Annotation\DeserializedName;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class MappedObjectNormalizer extends ObjectNormalizer
+class DeserializedNameObjectNormalizer extends ObjectNormalizer
 {
     /**
      * @var Reader
@@ -49,17 +49,24 @@ class MappedObjectNormalizer extends ObjectNormalizer
         if (array_key_exists(get_class($object), $this->readerCache)) {
             return;
         }
-        //Try to find MappedProperty annotation
+
         $reflectionClass = new \ReflectionClass($object);
         foreach ($reflectionClass->getProperties() as $property) {
-            /** @var MappedProperty $annotation */
-            $annotation = $this->reader->getPropertyAnnotation($property, MappedProperty::class);
-            if ($annotation instanceof MappedProperty) {
-                $this->readerCache[$reflectionClass->getName()][$annotation->name] = $property->getName();
+            /** @var DeserializedName $annotation */
+            $annotation = $this->reader->getPropertyAnnotation($property, DeserializedName::class);
+            if ($annotation instanceof DeserializedName) {
+                $this->readerCache[$reflectionClass->getName()][$annotation->value] = $property->getName();
             }
         }
     }
 
+    /**
+     * @param object $object
+     * @param string $attribute
+     *
+     * @return mixed
+     * @throws \ReflectionException
+     */
     protected function getAttributeName($object, $attribute)
     {
         $class = get_class($object);
@@ -72,8 +79,9 @@ class MappedObjectNormalizer extends ObjectNormalizer
 
     /**
      * {@inheritdoc}
+     * @throws \ReflectionException
      */
-    protected function setAttributeValue($object, $attribute, $value, $format = null, array $context = array())
+    protected function setAttributeValue($object, $attribute, $value, $format = null, array $context = [])
     {
         $attribute = $this->getAttributeName($object, $attribute);
         parent::setAttributeValue($object, $attribute, $value, $format, $context);

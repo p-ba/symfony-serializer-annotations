@@ -10,7 +10,7 @@ use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 
-class MappedObjectNormalizerTest extends TestCase
+class DeserializedNameObjectNormalizerTest extends TestCase
 {
     public function testDenormalize()
     {
@@ -19,7 +19,7 @@ class MappedObjectNormalizerTest extends TestCase
         $metadataFactory = new ClassMetadataFactory(new AnnotationLoader($reader));
         $propertyAccessor = new PropertyAccessor();
         $propertyTypeExtractor = new ReflectionExtractor();
-        $normalizer = new MappedObjectNormalizer($metadataFactory, null, $propertyAccessor, $propertyTypeExtractor, null, $reader);
+        $normalizer = new DeserializedNameObjectNormalizer($metadataFactory, null, $propertyAccessor, $propertyTypeExtractor, null, $reader);
         /** @var TestClass $result */
         $result = $normalizer->denormalize($testData, TestClass::class, 'json');
         $this->assertEquals('testValue', $result->getTestProperty());

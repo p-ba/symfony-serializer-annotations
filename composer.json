@@ -6,6 +6,7 @@
         "psr-4": {"PBA\\": ["src/", "tests/"]}
     },
     "require": {
+        "php": "^7.0",
         "symfony/serializer": "^4.1",
         "symfony/property-access": "^4.1",
         "symfony/property-info": "^4.1"

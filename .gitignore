@@ -1,3 +1,6 @@
+.idea
+.vsode
+
 /vendor/
 .phpcs
 .phpcs.cache

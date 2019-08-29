@@ -9,7 +9,7 @@ $json = '{"testProperty": "testValue"}';
 
 class SomeClass {
   /**
-   * @PBA\Serializer\Annotation\MappedProperty(name="testProperty")
+   * @PBA\Serializer\Annotation\DeserializedName(name="testProperty")
    */
   public $property;
 }

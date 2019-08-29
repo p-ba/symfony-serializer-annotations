@@ -1,5 +1,6 @@
 {
     "name": "p-ba/symfony-serializer-ext",
+    "version": "0.0.1",
     "description": "This package extends standard Symfony Serializer functionality",
     "keywords": [
         "serialization",

@@ -1,12 +1,18 @@
 {
-    "name": "p-ba/symfony-serializer-annotations",
-    "description": "Serializer annotations",
+    "name": "p-ba/symfony-serializer-ext",
+    "description": "This package extends standard Symfony Serializer functionality",
+    "keywords": [
+        "serialization",
+        "deserialization",
+        "json",
+        "xml"
+    ],
     "type": "library",
     "autoload": {
         "psr-4": {"PBA\\": ["src/", "tests/"]}
     },
     "require": {
-        "php": "^7.0",
+        "php": "^7.2",
         "symfony/serializer": "^4.1",
         "symfony/property-access": "^4.1",
         "symfony/property-info": "^4.1"
